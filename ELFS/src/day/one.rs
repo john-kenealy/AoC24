@@ -1,7 +1,7 @@
 use std::{fs::File, io::{BufRead, BufReader}};
 
 pub fn solve() {
-    println!("Oneeeee is the loneliest number...");
+    println!("Oneeeee is the loneliest number:");
 
     let doc = File::open("../inputs/one").expect("where file");
     let reader = BufReader::new(doc);
@@ -34,7 +34,7 @@ pub fn solve() {
 }
 
 pub fn solve_two() {
-    println!("Twooooo can be as bad as one...");
+    println!("day 1:");
 
     let doc = File::open("../inputs/one").expect("where file");
     let reader = BufReader::new(doc);

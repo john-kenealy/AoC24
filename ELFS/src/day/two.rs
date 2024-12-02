@@ -5,7 +5,7 @@ use std::{
 };
 
 pub fn solve() {
-    println!("day two baby");
+    println!("day two:");
 
     let doc = File::open("../inputs/two").expect("where file");
     let reader = BufReader::new(doc);
@@ -68,7 +68,7 @@ fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
 
         i += 1;
     }
-    println!("{:?}, {}, {}", report, report.len(), should_increment);
+    //println!("{:?}, {}, {}", report, report.len(), should_increment);
 
     should_increment
 }
