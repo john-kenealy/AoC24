@@ -34,7 +34,7 @@ pub fn solve() {
 }
 
 pub fn solve_two() {
-    println!("Oneeeee is the loneliest number...");
+    println!("Twooooo can be as bad as one...");
 
     let doc = File::open("../inputs/one").expect("where file");
     let buf = BufReader::new(doc);
