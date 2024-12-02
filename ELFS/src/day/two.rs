@@ -42,7 +42,6 @@ fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
         // get new sign to track if the diff stays - or +
         let new_sign = if diff > 0 { 1 } else { 0 };
 
-
         // first loop just set sign
         if i == 0 {
             sign = new_sign;
@@ -52,6 +51,9 @@ fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
         // otherwise increment
         if sign != new_sign || diff == 0 || diff.abs() > 3 {
             should_increment = false;
+
+            // at earliest sign of failure, loop through all iterations of the report removing one
+            // element at a time.
             if inception_counter < 1 {
                 report.iter().enumerate().for_each(|(j, _)| {
                     let mut alt: Vec<isize> = report.to_vec();
@@ -60,7 +62,7 @@ fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
                         should_increment = true
                     }
                 });
-            } 
+            }
             break;
         } else {
             should_increment = true;
@@ -68,7 +70,6 @@ fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
 
         i += 1;
     }
-    //println!("{:?}, {}, {}", report, report.len(), should_increment);
 
     should_increment
 }
