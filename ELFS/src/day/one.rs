@@ -4,12 +4,12 @@ pub fn solve() {
     println!("Oneeeee is the loneliest number...");
 
     let doc = File::open("../inputs/one").expect("where file");
-    let buf = BufReader::new(doc);
+    let reader = BufReader::new(doc);
     
     let mut left: Vec<i32> = vec![];
     let mut right: Vec<i32> = vec![];
 
-    let _: Vec<_> = buf.lines()
+    let _: Vec<_> = reader.lines()
         .map(|l| l.expect("where line"))
         .map(|l| {
             let v: Vec<&str> = l.split("   ").collect();
@@ -37,12 +37,12 @@ pub fn solve_two() {
     println!("Twooooo can be as bad as one...");
 
     let doc = File::open("../inputs/one").expect("where file");
-    let buf = BufReader::new(doc);
+    let reader = BufReader::new(doc);
     
     let mut left: Vec<usize> = vec![];
     let mut right: Vec<usize> = vec![];
 
-    let _: Vec<_> = buf.lines()
+    let _: Vec<_> = reader.lines()
         .map(|l| l.expect("where line"))
         .map(|l| {
             let v: Vec<&str> = l.split("   ").collect();
