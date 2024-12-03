@@ -1,5 +1,6 @@
 use std::{fs::File, io::{BufRead, BufReader}};
 
+#[allow(dead_code)]
 pub fn solve() {
     println!("Oneeeee is the loneliest number:");
 
@@ -33,6 +34,7 @@ pub fn solve() {
     //println!("{:?}", right);
 }
 
+#[allow(dead_code)]
 pub fn solve_two() {
     println!("day 1:");
 

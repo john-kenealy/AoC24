@@ -4,6 +4,7 @@ use std::{
     isize,
 };
 
+#[allow(dead_code)]
 pub fn solve() {
     println!("day two:");
 
@@ -31,6 +32,7 @@ pub fn solve() {
     println!("{}", count);
 }
 
+#[allow(dead_code)]
 fn report_checker(report: &Vec<isize>, inception_counter: usize) -> bool {
     let mut sign = 0;
     let mut i = 0;
