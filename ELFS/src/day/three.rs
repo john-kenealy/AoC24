@@ -8,19 +8,6 @@ pub fn solve() {
 
     let doc = read_to_string("../inputs/three").expect("where file");
 
-    //let dontdoc: Vec<_> = doc.split_inclusive("don't()").collect();
-    //let dodoc: Vec<_> = dontdoc.iter().map(|l| l.split_inclusive("do()").collect::<Vec<_>>()).collect();
-
-    //let ungarbaged: i32 = re.captures_iter(doc.as_str())
-    //    .map(|caps| {
-    //        let (_, [x, y]) = caps.extract();
-    //        x.parse::<i32>().expect("where number") * y.parse::<i32>().expect("where number")
-    //    })
-    //    .sum::<i32>();
-
-    //dodoc.iter().map(|l| println!("line {:?} \n", l)).collect::<Vec<_>>();
-    //println!("{:?}", dodoc);
-
     let mut good_instructions: Vec<String> = vec![];
 
     splitter(&mut good_instructions, doc, "don't()".to_string());
@@ -54,7 +41,7 @@ fn splitter(keep: &mut Vec<String>, s: String, delimeter: String) {
             if delimeter == "don't()" {
                 keep.push(s);
             }
-            return
+            return;
         }
     }
 }
