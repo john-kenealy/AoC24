@@ -75,12 +75,9 @@ fn xmas_finder(
         'M' => {
             for row in -1..2 {
                 for col in -1..2 {
-                    //println!("current_row {} current_col {} row {} col {}", current_row, current_col, row, col);
                     if coord_validater(h, w, current_row + row, current_col + col) {
                         let new_row: usize = usize::try_from(current_row + row).unwrap();
                         let new_col: usize = usize::try_from(current_col + col).unwrap();
-
-                        //println!("coords: row:{} col:{}", new_row, new_col);
 
                         if puzzle[new_row][new_col] == 'M' {
                             xmas_finder(
@@ -112,8 +109,8 @@ fn xmas_finder(
                         new_col.try_into().unwrap(),
                         h,
                         w,
-                        row_inc,
-                        col_inc,
+                        row,
+                        col,
                         counter,
                     );
                 }
@@ -191,7 +188,6 @@ fn mas_finder(
 }
 
 fn coord_validater(h: i32, w: i32, row: i32, col: i32) -> bool {
-    //println!("row: {} col: {}", row, col);
     if row < 0 || col < 0 {
         return false;
     } else if row > h - 1 || col > w - 1 {
