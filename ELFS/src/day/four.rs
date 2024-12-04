@@ -109,8 +109,8 @@ fn xmas_finder(
                         new_col.try_into().unwrap(),
                         h,
                         w,
-                        row,
-                        col,
+                        row_inc,
+                        col_inc,
                         counter,
                     );
                 }
