@@ -7,11 +7,16 @@ fn main() {
     //day::one::solve_two();
 
     //day::two::solve();
-    //
+    
+    //day::three::solve();
+    
+    
+    
+    
     use std::time::Instant;
     let now = Instant::now();
-
-    day::three::solve();
+        
+    day::four::solve();
 
     let elapsed = now.elapsed();
     println!("Elapsed: {:.2?}", elapsed);   

@@ -1,6 +1,7 @@
 use regex::Regex;
 use std::fs::read_to_string;
 
+#[allow(dead_code)]
 pub fn solve() {
     println!("day three:");
 
@@ -10,7 +11,7 @@ pub fn solve() {
 
     let mut good_instructions: Vec<String> = vec![];
 
-    splitter(&mut good_instructions, doc, "don't()".to_string());
+    splitter(&mut good_instructions, &doc, "don't()".to_string());
 
     let ungarbaged: i32 = re
         .captures_iter(format!("{:?}", good_instructions).as_str())
@@ -23,7 +24,8 @@ pub fn solve() {
     print!("{} \n", ungarbaged);
 }
 
-fn splitter(keep: &mut Vec<String>, s: String, delimeter: String) {
+#[allow(dead_code)]
+fn splitter(keep: &mut Vec<String>, s: &String, delimeter: String) {
     let split_string = s.split_once(&delimeter);
 
     match split_string {
@@ -35,11 +37,11 @@ fn splitter(keep: &mut Vec<String>, s: String, delimeter: String) {
             } else {
                 new_delimeter = "don't()";
             }
-            splitter(keep, i.1.to_string(), new_delimeter.to_string());
+            splitter(keep, &i.1.to_string(), new_delimeter.to_string());
         }
         _ => {
             if delimeter == "don't()" {
-                keep.push(s);
+                keep.push(s.to_string());
             }
             return;
         }
