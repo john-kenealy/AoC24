@@ -4,10 +4,10 @@ use std::{
     collections::HashMap,
     fs::File,
     io::{BufRead, BufReader},
-    usize,
+    usize, vec,
 };
 
-pub fn solve() {
+pub fn solve(first: bool) {
     println!("day five:");
 
     let doc = File::open("../inputs/five").expect("where file");
@@ -25,15 +25,48 @@ pub fn solve() {
 
     let combined_rules = rule_combiner(&rules);
 
-    let good_jobs_middle = job_checker(&combined_rules, &mut jobs);
-    //println!("count of jobs: {:?}\n", jobs.len());
-    println!("sum of middles: {:?}", good_jobs_middle.iter().sum::<usize>());
+    let good_jobs_middle: Vec<usize>;
 
-    println!("middle nums: {:?}", good_jobs_middle);
+    if first {
+        good_jobs_middle = job_checker_first(&combined_rules, &mut jobs);
+    } else {
+        good_jobs_middle = job_checker_second(&combined_rules, &mut jobs);
+    }
+
+    println!("sum of middles: {:?}", good_jobs_middle.iter().sum::<usize>());
+}
+
+fn job_checker_first(
+    combined_rules: &HashMap<usize, Vec<usize>>,
+    jobs: &mut Vec<Vec<usize>>,
+) -> Vec<usize> {
+    let mut good_prints = vec![];
+
+    for i in 0..jobs.len() {
+        let mut job = jobs[i].clone();
+        let mut valid_job = true;
+        
+        let mut j = 0;
+
+        while j < job.len() {
+            let page = job[j];
+            if combined_rules.contains_key(&page) {
+                if !job_validator(&mut job, j, combined_rules.get(&page).unwrap()) {
+                    valid_job = false;
+                }
+            }
+            j += 1;
+        }
+        if valid_job {
+            good_prints.push(get_middle(job.to_vec()));
+        }
+    }
+
+    good_prints
 }
 
 // check each page in each job to confirm it follows rules
-fn job_checker(
+fn job_checker_second(
     combined_rules: &HashMap<usize, Vec<usize>>,
     jobs: &mut Vec<Vec<usize>>,
 ) -> Vec<usize> {
@@ -56,7 +89,7 @@ fn job_checker(
             j += 1;
         }
         if !valid_job {
-            println!("job: {:?}", job);
+            //println!("job: {:?}", job);
 
             good_prints.push(get_middle(job.to_vec()));
         }
@@ -68,6 +101,7 @@ fn job_checker(
 fn get_middle(job: Vec<usize>) -> usize {
     *job.get((job.len() - 1) / 2).expect("where middle")
 }
+
 
 fn job_re_orderer(job: &mut Vec<usize>, page_index: usize, rule: &Vec<usize>) -> bool {
     //let page_index = job.iter().position(|p| p == page);

@@ -13,12 +13,23 @@ fn main() {
     //day::four::solve();
     
     
+    // PART 1
     use std::time::Instant;
-    let now = Instant::now();
-    
-    day::five::solve();
 
-    let elapsed = now.elapsed();
-    println!("Elapsed: {:.2?}", elapsed);   
+    let mut now = Instant::now();
+    day::five::solve(true);
+
+    let mut elapsed = now.elapsed();
+    println!("Part 1 Elapsed: {:.2?}", elapsed);   
+
+
+
+    // PART 2
+    now = Instant::now();
+
+    day::five::solve(false);
+
+    elapsed = now.elapsed();
+    println!("Part 2 Elapsed: {:.2?}", elapsed);   
 
 }
