@@ -10,13 +10,13 @@ fn main() {
     
     //day::three::solve();
     
-    
+    //day::four::solve();
     
     
     use std::time::Instant;
     let now = Instant::now();
-        
-    day::four::solve();
+    
+    day::five::solve();
 
     let elapsed = now.elapsed();
     println!("Elapsed: {:.2?}", elapsed);   

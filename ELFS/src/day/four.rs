@@ -4,6 +4,7 @@ use std::{
     usize,
 };
 
+#[allow(dead_code)]
 pub fn solve() {
     println!("day four:");
 
@@ -130,6 +131,7 @@ fn xmas_finder(
     }
 }
 
+#[allow(dead_code)]
 fn mas_finder(
     puzzle: &Vec<Vec<char>>,
     current_row: i32,
