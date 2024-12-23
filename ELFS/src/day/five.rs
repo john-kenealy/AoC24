@@ -7,6 +7,7 @@ use std::{
     usize, vec,
 };
 
+#[allow(dead_code)]
 pub fn solve(first: bool) {
     println!("day five:");
 
@@ -25,6 +26,8 @@ pub fn solve(first: bool) {
 
     let combined_rules = rule_combiner(&rules);
 
+    println!("rules {:?}", combined_rules);
+
     let good_jobs_middle: Vec<usize>;
 
     if first {
@@ -36,6 +39,7 @@ pub fn solve(first: bool) {
     println!("sum of middles: {:?}", good_jobs_middle.iter().sum::<usize>());
 }
 
+#[allow(dead_code)]
 fn job_checker_first(
     combined_rules: &HashMap<usize, Vec<usize>>,
     jobs: &mut Vec<Vec<usize>>,
@@ -66,6 +70,7 @@ fn job_checker_first(
 }
 
 // check each page in each job to confirm it follows rules
+#[allow(dead_code)]
 fn job_checker_second(
     combined_rules: &HashMap<usize, Vec<usize>>,
     jobs: &mut Vec<Vec<usize>>,
@@ -98,11 +103,13 @@ fn job_checker_second(
     good_prints
 }
 
+#[allow(dead_code)]
 fn get_middle(job: Vec<usize>) -> usize {
     *job.get((job.len() - 1) / 2).expect("where middle")
 }
 
 
+#[allow(dead_code)]
 fn job_re_orderer(job: &mut Vec<usize>, page_index: usize, rule: &Vec<usize>) -> bool {
     //let page_index = job.iter().position(|p| p == page);
 
@@ -141,6 +148,7 @@ fn job_validator(job: &Vec<usize>, page_index: usize, rule: &Vec<usize>) -> bool
 }
 
 // split line into two vectors based on whether the line is a rule or a print job
+#[allow(dead_code)]
 fn splitter(line: String, rules: &mut Vec<Vec<usize>>, jobs: &mut Vec<Vec<usize>>) {
     if line.contains("|") {
         let rule: Vec<usize> = line
@@ -158,6 +166,7 @@ fn splitter(line: String, rules: &mut Vec<Vec<usize>>, jobs: &mut Vec<Vec<usize>
 }
 
 // make a combined set of rules for easier traversal?? hopefully??
+#[allow(dead_code)]
 fn rule_combiner(rules: &Vec<Vec<usize>>) -> HashMap<usize, Vec<usize>> {
     let mut combined_rules: HashMap<usize, Vec<usize>> = HashMap::new();
 

@@ -12,24 +12,24 @@ fn main() {
     
     //day::four::solve();
     
+    //day::five::solve(true);
+    //day::five::solve(false);
     
     // PART 1
-    use std::time::Instant;
+    //use std::time::Instant;
+    //let mut now = Instant::now();
 
-    let mut now = Instant::now();
-    day::five::solve(true);
+    day::six::solve();
 
-    let mut elapsed = now.elapsed();
-    println!("Part 1 Elapsed: {:.2?}", elapsed);   
+    //let mut elapsed = now.elapsed();
+    //println!("Part 1 Elapsed: {:.2?}", elapsed);   
 
 
 
     // PART 2
-    now = Instant::now();
-
-    day::five::solve(false);
-
-    elapsed = now.elapsed();
-    println!("Part 2 Elapsed: {:.2?}", elapsed);   
-
+    //now = Instant::now();
+    //
+    //
+    //elapsed = now.elapsed();
+    //println!("Part 2 Elapsed: {:.2?}", elapsed);   
 }
