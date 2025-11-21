@@ -88,55 +88,43 @@ fn problem_one(data: &Vec<Vec<char>>, route: &mut Route) {
     );
 }
 
-fn patrol(data: &Vec<Vec<char>>, route: &mut Route, current_position: Position) {
-    // Update list of locations seen and incrememnt count of unizue coordinates hit
-    //
-    //
-    // 1. add current position/orientation to the route
-    //   a. end route
-    //   b. continue
-    // 2. check the position in front of me
-    //   a. turn and add new current position and orientation to Route
-    //   OR
-    //   b. step
-    // 3. back to 1.
-
+fn patrol(data: &Vec<Vec<char>>, route: &mut Route, mut current_position: Position) {
     // 1. add current_position position to route
     add_to_route(route, &current_position);
 
     // 2. determine if we are at the end of the route
     if check_for_edge(&current_position, data.len(), data[0].len()) {
-        println!("Route locations: {:?}", route.seen_locations);
+        println!("found edge.");
         return;
     }
 
     // 3. determing next step
-    let mut next_position = get_next_position(current_position);
+    let mut next_position = get_next_position(&current_position);
     let mut end_patrol: bool = false;
 
     // 3.1 check next spot for
     while data[next_position.y][next_position.x] == '#' {
-        next_position.direction = next_cardinal_direction(next_position.direction);
+        current_position.direction = next_cardinal_direction(current_position.direction);
 
-        if !add_to_route(route, &next_position) {
+        if !add_to_route(route, &current_position) {
             println!("encountered infinite route");
             end_patrol = true;
             break;
         }
 
-        if check_for_edge(&next_position, data.len(), data[0].len()) {
+        if check_for_edge(&current_position, data.len(), data[0].len()) {
             println!("leaving the grid");
             end_patrol = true;
             break;
         }
 
-        next_position = get_next_position(next_position);
+        next_position = get_next_position(&current_position);
     }
 
     if !end_patrol {
         patrol(data, route, next_position);
     } else {
-        println!("Route locations: {:?}", route.seen_locations);
+        println!("found edge or infinite loop.")
     }
 }
 
@@ -149,27 +137,27 @@ fn next_cardinal_direction(current_direction: Cardinal) -> Cardinal {
     }
 }
 
-fn get_next_position(current_position: Position) -> Position {
+fn get_next_position(current_position: &Position) -> Position {
     match current_position.direction {
         Cardinal::N => Position {
             y: current_position.y - 1,
             x: current_position.x,
-            direction: current_position.direction,
+            direction: Cardinal::N,
         },
         Cardinal::E => Position {
             y: current_position.y,
             x: current_position.x + 1,
-            direction: current_position.direction,
+            direction: Cardinal::E,
         },
         Cardinal::S => Position {
             y: current_position.y + 1,
             x: current_position.x,
-            direction: current_position.direction,
+            direction: Cardinal::S,
         },
         Cardinal::W => Position {
             y: current_position.y,
             x: current_position.x - 1,
-            direction: current_position.direction,
+            direction: Cardinal::W,
         },
     }
 }
