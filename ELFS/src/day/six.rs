@@ -45,21 +45,44 @@ pub fn solve() {
     use std::time::Instant;
     let now = Instant::now();
 
-    problem_one(&mut map.grid, &mut route, &mut blocks);
+    problem_one(&mut map.grid, &mut route);
 
-    let elapsed = now.elapsed();
-    println!("Part 1 Elapsed: {:.2?}", elapsed);
-    println!("Part 2 Elapsed: {:.2?}", elapsed);
 
     let mut part_1_locations: HashSet<(usize, usize)> = HashSet::new();
     for location in &route.seen_locations {
         part_1_locations.insert((location.y, location.x));
     }
 
-    println!(
-        "Count of distinct locations visited: {:?}",
-        part_1_locations.len()
-    );
+    for p1 in part_1_locations {
+        let mut test_data = map.grid.clone();
+        test_data[p1.0][p1.1] = '#';
+
+        if patrol(
+            &test_data,
+            &mut Route {
+                seen_locations: HashSet::new(),
+                visit_count: 0,
+            },
+            Position {
+                y: 39,
+                x: 46,
+                direction: Cardinal::N,
+            },
+        ) {
+            blocks.insert((p1.0, p1.1));
+            //println!("{:?}", blocks.len());
+        }
+    }
+
+    blocks.remove(&(39, 46));
+
+    let elapsed = now.elapsed();
+    println!("Part 1 Elapsed: {:.2?}", elapsed);
+    println!("Part 2 Elapsed: {:.2?}", elapsed);
+    //println!(
+    //    "Count of distinct locations visited: {:?}",
+    //    part_1_locations.len()
+    //);
     println!("Count of locations to obstruct: {:?}", blocks.len());
 }
 
@@ -73,7 +96,7 @@ fn import() -> Vec<Vec<char>> {
         .collect()
 }
 
-fn problem_one(data: &Vec<Vec<char>>, route: &mut Route, blocks: &mut HashSet<(usize, usize)>) {
+fn problem_one(data: &Vec<Vec<char>>, route: &mut Route) {
     let mut start: (usize, usize) = (42, 42);
     data.iter()
         .enumerate()
@@ -92,26 +115,16 @@ fn problem_one(data: &Vec<Vec<char>>, route: &mut Route, blocks: &mut HashSet<(u
             x: start.1,
             direction: Cardinal::N,
         },
-        blocks,
-        (0, 0),
-        true,
     );
 }
 
-fn patrol(
-    data: &Vec<Vec<char>>,
-    route: &mut Route,
-    mut current_position: Position,
-    blocks: &mut HashSet<(usize, usize)>,
-    block: (usize, usize),
-    test: bool,
-) -> bool {
+fn patrol(data: &Vec<Vec<char>>, route: &mut Route, mut current_position: Position) -> bool {
     // 1. add current_position position to route
     add_to_route(route, &current_position);
 
     // 2. determine if we are at the end of the route
     if check_for_edge(&current_position, data.len(), data[0].len()) {
-        println!("found edge.");
+        //println!("found edge.");
 
         return false;
     }
@@ -119,22 +132,21 @@ fn patrol(
     // 3. determing next step
     let mut next_position = get_next_position(&current_position);
     let mut end_patrol: bool = false;
-    let mut infinite_loop: bool = true;
+    let mut infinite_loop: bool = false;
 
     // 3.1 check next spot for
     while data[next_position.y][next_position.x] == '#' {
         current_position.direction = next_cardinal_direction(current_position.direction);
 
         if !add_to_route(route, &current_position) {
-            println!("encountered infinite route");
-            blocks.insert(block);
+            //println!("encountered infinite route");
             infinite_loop = true;
             end_patrol = true;
             break;
         }
 
         if check_for_edge(&current_position, data.len(), data[0].len()) {
-            println!("leaving the grid");
+            //println!("leaving the grid");
             end_patrol = true;
             break;
         }
@@ -143,29 +155,10 @@ fn patrol(
     }
 
     if !end_patrol {
-        if test {
-            let mut test_data = data.clone();
-            let mut test_route = route.clone();
-            let block = (next_position.y, next_position.x);
-            test_data[block.0][block.1] = '#';
-
-            patrol(
-                &test_data,
-                &mut test_route,
-                current_position,
-                blocks,
-                block,
-                false,
-            );
-        }
-
-        patrol(data, route, next_position, blocks, (0, 0), test);
+        patrol(data, route, next_position)
     } else {
-        println!("found edge or infinite loop.");
-        println!("{:?}", blocks.len());
+        infinite_loop   
     }
-
-    infinite_loop
 }
 
 fn next_cardinal_direction(current_direction: Cardinal) -> Cardinal {
