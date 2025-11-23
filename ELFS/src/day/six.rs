@@ -6,12 +6,14 @@ use std::{
     usize,
 };
 
+#[allow(dead_code)]
 #[derive(Debug, Clone)]
 struct Route {
     seen_locations: HashSet<Position>,
     visit_count: usize,
 }
 
+#[allow(dead_code)]
 #[derive(Eq, Hash, PartialEq, Clone, Debug)]
 struct Position {
     y: usize,
@@ -19,6 +21,7 @@ struct Position {
     direction: Cardinal,
 }
 
+#[allow(dead_code)]
 #[derive(Eq, Hash, PartialEq, Clone, Debug)]
 enum Cardinal {
     N,
@@ -27,10 +30,12 @@ enum Cardinal {
     W,
 }
 
+#[allow(dead_code)]
 struct Map {
     grid: Vec<Vec<char>>,
 }
 
+#[allow(dead_code)]
 pub fn solve() {
     println!("day six:");
     let mut route = Route {
@@ -86,6 +91,7 @@ pub fn solve() {
     println!("Count of locations to obstruct: {:?}", blocks.len());
 }
 
+#[allow(dead_code)]
 fn import() -> Vec<Vec<char>> {
     let doc = File::open("inputs/six").expect("where file");
     let reader = BufReader::new(doc);
@@ -96,6 +102,7 @@ fn import() -> Vec<Vec<char>> {
         .collect()
 }
 
+#[allow(dead_code)]
 fn problem_one(data: &Vec<Vec<char>>, route: &mut Route) {
     let mut start: (usize, usize) = (42, 42);
     data.iter()
@@ -118,6 +125,7 @@ fn problem_one(data: &Vec<Vec<char>>, route: &mut Route) {
     );
 }
 
+#[allow(dead_code)]
 fn patrol(data: &Vec<Vec<char>>, route: &mut Route, mut current_position: Position) -> bool {
     // 1. add current_position position to route
     add_to_route(route, &current_position);
@@ -161,6 +169,7 @@ fn patrol(data: &Vec<Vec<char>>, route: &mut Route, mut current_position: Positi
     }
 }
 
+#[allow(dead_code)]
 fn next_cardinal_direction(current_direction: Cardinal) -> Cardinal {
     match current_direction {
         Cardinal::N => Cardinal::E,
@@ -170,6 +179,7 @@ fn next_cardinal_direction(current_direction: Cardinal) -> Cardinal {
     }
 }
 
+#[allow(dead_code)]
 fn get_next_position(current_position: &Position) -> Position {
     match current_position.direction {
         Cardinal::N => Position {
@@ -195,6 +205,7 @@ fn get_next_position(current_position: &Position) -> Position {
     }
 }
 
+#[allow(dead_code)]
 fn add_to_route(route: &mut Route, position: &Position) -> bool {
     let res = route.seen_locations.insert(position.clone());
 
@@ -205,6 +216,7 @@ fn add_to_route(route: &mut Route, position: &Position) -> bool {
     res
 }
 
+#[allow(dead_code)]
 fn check_for_edge(position: &Position, height: usize, width: usize) -> bool {
     match position.direction {
         Cardinal::N => {
