@@ -19,8 +19,9 @@ fn main() {
     //use std::time::Instant;
     //let mut now = Instant::now();
 
-    day::six::solve();
+    //day::six::solve();
 
+    day::seven::solve();
     //let mut elapsed = now.elapsed();
     //println!("Part 1 Elapsed: {:.2?}", elapsed);   
 
