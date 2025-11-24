@@ -4,8 +4,14 @@ use std::{fs::File, io::{BufRead, BufReader}};
 pub fn solve() {
     println!("Oneeeee is the loneliest number:");
 
-    let doc = File::open("../inputs/one").expect("where file");
+    let doc = File::open("inputs/one").expect("where file");
     let reader = BufReader::new(doc);
+
+
+    use std::time::Instant;
+    let now = Instant::now();
+
+
     
     let mut left: Vec<i32> = vec![];
     let mut right: Vec<i32> = vec![];
@@ -29,6 +35,11 @@ pub fn solve() {
         .zip(right)
         .map(|(l, r)| (l-r).abs())
         .collect();
+
+
+    let elapsed = now.elapsed();
+    //println!("{:?}", operator_strings);
+    println!("Elapsed: {:.2?}", elapsed);
 
     println!("{}", diff.iter().sum::<i32>());
     //println!("{:?}", right);
