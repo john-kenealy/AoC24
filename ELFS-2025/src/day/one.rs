@@ -69,41 +69,44 @@ pub fn solve_two() {
     for line in data {
         let turn = line.split_at(1);
         let direction = turn.0;
-        let magnitude: isize = turn.1.parse::<isize>().unwrap();
+        let mut magnitude: isize = turn.1.parse::<isize>().unwrap();
+        let dial_size = 100;
+
+        zero_counter += magnitude / dial_size;
+        magnitude = magnitude % dial_size;
 
         match direction {
             "L" => {
                 let diff = (current_position - magnitude).abs();
-                current_position = if current_position < magnitude {
+
+                if current_position < magnitude {
                     //account for current position being zero
                     zero_counter += if current_position == 0 { 0 } else { 1 };
 
-                    //count up for number of times 0 'ticked'
-                    zero_counter += diff / 100;
-
                     //new current position
-                    if diff % 100 == 0 { 0 } else { 100 - diff % 100 }
+                    current_position = dial_size - diff % dial_size
                 } else {
                     if diff == 0 {
                         zero_counter += 1;
                     }
-                    diff
+                    current_position = diff
                 };
             }
             "R" => {
                 let sum = current_position + magnitude;
-                current_position = if sum > 99 {
-                    zero_counter += sum / 100;
-                    sum % 100
+
+                if sum >= dial_size {
+                    zero_counter += 1;
                 } else {
                     if sum == 0 {
                         zero_counter += 1;
                     }
-                    sum
                 };
+                current_position = sum % dial_size
             }
             _ => println!("ruh roh"),
         }
+        //println!("{:?}", current_position)
     }
 
     println!("Answer: {:?}", zero_counter);
