@@ -24,7 +24,6 @@ pub fn solve() {
                 } else {
                     current_position - magnitude
                 };
-                //println!("{:?}", current_position);
                 if current_position == 0 {
                     zero_counter += 1;
                 }
@@ -35,7 +34,6 @@ pub fn solve() {
                 } else {
                     current_position + magnitude
                 };
-                //println!("{:?}", current_position);
                 if current_position == 0 {
                     zero_counter += 1;
                 }
@@ -75,41 +73,37 @@ pub fn solve_two() {
 
         match direction {
             "L" => {
+                let diff = (current_position - magnitude).abs();
                 current_position = if current_position < magnitude {
-                    //println!("{:?}, {:?}", (current_position - magnitude).abs(), (current_position - magnitude).abs() / 100);
-                    zero_counter += if current_position == 0 {0} else {1}; 
-                    zero_counter += (current_position - magnitude).abs() / 100;
-                    //println!("mafs: {:?}", (current_position - magnitude).abs() / 100);
-                    if (current_position - magnitude).abs() % 100 == 0 {
-                        0
-                    } else {
-                       100 - (current_position - magnitude).abs() % 100
-                    }
+                    //account for current position being zero
+                    zero_counter += if current_position == 0 { 0 } else { 1 };
+
+                    //count up for number of times 0 'ticked'
+                    zero_counter += diff / 100;
+
+                    //new current position
+                    if diff % 100 == 0 { 0 } else { 100 - diff % 100 }
                 } else {
-                    if current_position - magnitude == 0 {
+                    if diff == 0 {
                         zero_counter += 1;
                     }
-                    current_position - magnitude
+                    diff
                 };
             }
             "R" => {
-                current_position = if current_position + magnitude > 99 {
-                    //println!("{:?} {:?}", (current_position + magnitude), (current_position + magnitude) / 100);
-                    zero_counter += (current_position + magnitude) / 100;
-                    (current_position + magnitude) % 100
+                let sum = current_position + magnitude;
+                current_position = if sum > 99 {
+                    zero_counter += sum / 100;
+                    sum % 100
                 } else {
-                    if current_position + magnitude == 0 {
+                    if sum == 0 {
                         zero_counter += 1;
                     }
-                    current_position + magnitude
+                    sum
                 };
             }
             _ => println!("ruh roh"),
         }
-        
-        //println!("position {:?}", current_position);
-        //println!("counter {:?}", zero_counter);
-
     }
 
     println!("Answer: {:?}", zero_counter);
