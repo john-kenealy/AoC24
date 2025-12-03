@@ -7,5 +7,6 @@ fn main() {
 
     //Input 2 for the part 1 solution, and 12 for part 2 solution, where the number is the length
     //of string to build.
-    day::three::solve_either(12);
+    //day::three::solve_either(12);
+    day::four::solve();
 }

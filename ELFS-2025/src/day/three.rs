@@ -2,7 +2,6 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-#[allow(dead_code)]
 //FIRST SOLUTION THAT SOLVES EITHER PART BASED ON INPUT.
 pub fn solve_either(length: usize) {
     let data = import("inputs/3");
@@ -43,7 +42,6 @@ fn joltage_builder(bank: Vec<u32>, length: usize) -> String {
     joltage
 }
 
-#[allow(dead_code)]
 fn import(path: &str) -> Vec<Vec<u32>> {
     let doc = File::open(path).expect("where file");
     let reader = BufReader::new(doc);
