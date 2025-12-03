@@ -5,7 +5,7 @@ use std::io::{BufRead, BufReader};
 #[allow(dead_code)]
 //FIRST SOLUTION THAT SOLVES EITHER PART BASED ON INPUT.
 pub fn solve_either(length: usize) {
-    let data = import("inputs/three");
+    let data = import("inputs/3");
 
     use std::time::Instant;
     let now = Instant::now();

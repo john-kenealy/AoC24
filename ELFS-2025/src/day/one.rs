@@ -1,10 +1,10 @@
+#![allow(dead_code)]
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::isize;
 
-#[allow(dead_code)]
 pub fn solve() {
-    let data = import("inputs/one");
+    let data = import("inputs/1");
 
     use std::time::Instant;
     let now = Instant::now();
@@ -57,9 +57,8 @@ fn import(path: &str) -> Vec<String> {
 
 //////////////////////////////////////////////////////////////////////////
 
-#[allow(dead_code)]
 pub fn solve_two() {
-    let data = import("inputs/one");
+    let data = import("inputs/1");
 
     use std::time::Instant;
     let now = Instant::now();
@@ -118,14 +117,12 @@ pub fn solve_two() {
 
 /////////////////////////////////////////////////////////////////////////////////
 
-#[allow(dead_code)]
 struct DialTurn {
     positions_to_move: isize,
     current_position: isize,
     zero_ticks: isize,
 }
 
-#[allow(dead_code)]
 impl DialTurn {
     fn move_left(&mut self) -> (isize, isize) {
         self.positions_to_move -= 1;
@@ -147,7 +144,6 @@ impl DialTurn {
         }
     }
 
-#[allow(dead_code)]
     fn move_right(&mut self) -> (isize, isize) {
         self.positions_to_move -= 1;
 
@@ -169,7 +165,6 @@ impl DialTurn {
     }
 }
 
-#[allow(dead_code)]
 pub fn solve_two_point_five() {
     let data = import("inputs/one");
 

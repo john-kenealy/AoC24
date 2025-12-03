@@ -1,7 +1,7 @@
+#![allow(dead_code)]
 use core::str;
 use std::{collections::HashSet, fs::read_to_string, usize};
 
-#[allow(dead_code)]
 fn import(path: &str) -> Vec<Vec<usize>> {
     let mut doc = read_to_string(path).expect("where file");
 
@@ -15,9 +15,8 @@ fn import(path: &str) -> Vec<Vec<usize>> {
         .collect()
 }
 
-#[allow(dead_code)]
 pub fn solve() {
-    let data = import("inputs/two");
+    let data = import("inputs/2");
 
     use std::time::Instant;
     let now = Instant::now();
@@ -48,9 +47,8 @@ pub fn solve() {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#[allow(dead_code)]
 pub fn solve_two() {
-    let data = import("inputs/two");
+    let data = import("inputs/2");
 
     use std::time::Instant;
     let now = Instant::now();
@@ -74,7 +72,6 @@ pub fn solve_two() {
     println!("Elapsed: {:.2?}", elapsed);
 }
 
-#[allow(dead_code)]
 fn factorer(id: &String) -> bool {
     for i in (1..id.len()).rev() {
         if id.len() % i != 0 {
@@ -89,7 +86,6 @@ fn factorer(id: &String) -> bool {
     false
 }
 
-#[allow(dead_code)]
 fn silly_checker(id: &String, factor: usize) -> bool {
     let mut silly: HashSet<String> = HashSet::new();
 
