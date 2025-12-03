@@ -28,7 +28,6 @@ fn joltage_builder(bank: Vec<u32>, length: usize) -> String {
     let mut start = 0;
 
     for i in (0..length).rev() {
-        //println!("start {start}");
         let sub_bank = &bank[start..bank.len() - i];
         let digit = sub_bank.iter().max().unwrap();
 
@@ -40,9 +39,7 @@ fn joltage_builder(bank: Vec<u32>, length: usize) -> String {
             + start;
 
         joltage.push_str(&digit.to_string());
-        //println!("{digit}");
     }
-    //println!("{joltage}");
     joltage
 }
 
