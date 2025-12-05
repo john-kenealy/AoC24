@@ -4,40 +4,51 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 pub fn solve() {
-    let flat_grid = import("inputs/4");
+    let mut flat_grid = import("inputs/4");
 
     use std::time::Instant;
     let now = Instant::now();
 
     let mut answer = 0;
 
-    for i in 0..flat_grid.len() {
-        for j in 0..flat_grid[0].len() {
-            let mut window: String = String::new();
+    let mut rolls_available = true;
 
-            if flat_grid[i][j] == '@' {
-                for h in 0..=2 {
-                    //println!("h:{h}");
-                    if (i == 0 && h == 0) || i + h > flat_grid.len() {
-                        continue;
-                    }
+    while rolls_available {
+        rolls_available = false;
+        let mut flat_grid_2 = flat_grid.clone();
 
-                    for w in 0..=2 {
-                        //println!("w:{w}");
-                        if (j == 0 && w == 0) || j + w > flat_grid.len() {
+        for i in 0..flat_grid.len() {
+            for j in 0..flat_grid[0].len() {
+                let mut window: String = String::new();
+
+                if flat_grid[i][j] == '@' {
+                    for h in 0..=2 {
+                        //println!("h:{h}");
+                        if (i == 0 && h == 0) || i + h > flat_grid.len() {
                             continue;
                         }
-                        //println!("added: i:{:?} j:{:?}", i + h - 1, j + w - 1);
-                        window.push(flat_grid[i + h - 1][j + w - 1]);
+
+                        for w in 0..=2 {
+                            //println!("w:{w}");
+                            if (j == 0 && w == 0) || j + w > flat_grid.len() {
+                                continue;
+                            }
+                            //println!("added: i:{:?} j:{:?}", i + h - 1, j + w - 1);
+                            window.push(flat_grid[i + h - 1][j + w - 1]);
+                        }
+                    }
+
+                    if window.matches('@').collect::<Vec<&str>>().len() < 5 {
+                        answer += 1;
+                        flat_grid_2[i][j] = '.';
+                        rolls_available = true;
                     }
                 }
-
-                if window.matches('@').collect::<Vec<&str>>().len() < 5 {
-                    //println!("i:{i}, j:{j}, {:?}", flat_grid[i]);
-                    answer += 1;
-                    //println!("{:?}", window);
-                }
             }
+        }
+
+        if rolls_available {
+            flat_grid = flat_grid_2;
         }
     }
 
