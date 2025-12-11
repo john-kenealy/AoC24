@@ -10,4 +10,5 @@ fn main() {
     //day::three::solve_either(12);
     //day::four::solve();
     day::five::solve_two();
+    day::six::solve();
 }
